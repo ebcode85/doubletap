@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Double Tap Switch</title>
+  <style>
+    body {
+      margin: 0; display: flex; height: 100vh; justify-content: center;
+      align-items: center; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 28px; color: white; -webkit-user-select: none; user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #screenA { background: purple; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
+    #screenB { background: teal; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="screenA">📱 Screen A<br>(double tap to switch)</div>
+  <div id="screenB">📱 Screen B<br>(double tap to switch)</div>
+
+  <script>
+    let lastTap = 0;
+    function toggle() {
+      const a = document.getElementById("screenA");
+      const b = document.getElementById("screenB");
+      if (a.style.display === "none") {
+        a.style.display = "flex"; b.style.display = "none";
+      } else {
+        a.style.display = "none"; b.style.display = "flex";
+      }
+    }
+
+    function handleTap(e) {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        toggle();
+      }
+      lastTap = now;
+    }
+
+    document.body.addEventListener("touchstart", handleTap, {passive: true});
+    document.body.addEventListener("click", handleTap);
+  </script>
+</body>
+</html>
