@@ -5,18 +5,28 @@
   <title>Double Tap Switch</title>
   <style>
     body {
-      margin: 0; display: flex; height: 100vh; justify-content: center;
-      align-items: center; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      font-size: 28px; color: white; -webkit-user-select: none; user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      margin: 0; height: 100vh; width: 100vw;
+      display: flex; justify-content: center; align-items: center;
+      background: black;
     }
-    #screenA { background: purple; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
-    #screenB { background: teal; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; text-align: center; }
+    img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain; /* or 'cover' if you want it cropped to fill */
+    }
+    #screenA, #screenB {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; justify-content: center; align-items: center;
+    }
+    #screenB { display: none; }
   </style>
 </head>
 <body>
-  <div id="screenA">📱 Screen A<br>(double tap to switch)</div>
-  <div id="screenB">📱 Screen B<br>(double tap to switch)</div>
+  <div id="screenA">
+    <img src="screenA.jpg" alt="Screen A">
+  </div>
+  <div id="screenB">
+    <img src="screenB.jpg" alt="Screen B">
+  </div>
 
   <script>
     let lastTap = 0;
@@ -30,11 +40,9 @@
       }
     }
 
-    function handleTap(e) {
+    function handleTap() {
       const now = Date.now();
-      if (now - lastTap < 300) {
-        toggle();
-      }
+      if (now - lastTap < 300) toggle();
       lastTap = now;
     }
 
